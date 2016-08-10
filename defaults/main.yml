@@ -1,0 +1,4 @@
+---
+
+system_base_timezone: UTC
+system_base_rsyslog_server: no
