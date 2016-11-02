@@ -1,0 +1,25 @@
+
+
+
+------------------------------------------------------------------------------------------------------
+Location      : {{ system_base_location }}
+OS            : {{ ansible_distribution }} {{ ansible_distribution_version }}
+Hostname      : {{ ansible_hostname }}
+IP addresses  : {% for ip in ansible_all_ipv4_addresses %}{{ ip }}{% if not loop.last %}, {% endif %}{% endfor %}
+
+{% if ansible_default_ipv4 %}
+
+Network
+IP            : {{ ansible_default_ipv4.address }}
+{% if "gateway" in ansible_default_ipv4 %}Gateway       : {{ ansible_default_ipv4.gateway }}{% endif %}
+
+{% if "netmask" in ansible_default_ipv4 %}Netmask       : {{ ansible_default_ipv4.netmask }}{% endif %}
+
+{% if "network" in ansible_default_ipv4 %}Network       : {{ ansible_default_ipv4.network }}{% endif %}
+
+Interface     : {{ ansible_default_ipv4.interface }}
+MAC           : {{ ansible_default_ipv4.macaddress }}
+{% endif %}
+
+
+

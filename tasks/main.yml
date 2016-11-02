@@ -3,3 +3,11 @@
 - include: packages.yml
   tags: packages
   become: yes
+
+- include: configuration.yml
+  tags: packages
+  become: yes
+
+- include: motd.yml
+  tags: system
+  become: yes

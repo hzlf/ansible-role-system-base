@@ -1,0 +1,33 @@
+---
+
+- name: ensure UTF-8 locale
+  locale_gen: name=en_US.UTF-8 state=present
+  tags: util
+
+- name: locale - generate UTF-8 locale
+  command: /usr/sbin/locale-gen en_US.UTF-8
+  changed_when: false
+
+# http://stackoverflow.com/questions/27292109/how-to-set-shell-variable-in-ansible-globally
+- name: update locale locale
+  action: command update-locale LC_ALL=en_US.UTF-8
+  changed_when: false
+- name: set default locale
+  lineinfile: dest=/etc/default/locale
+    regexp="LC_ALL"
+    line="LC_ALL=\"en_US.UTF-8\""
+  changed_when: false
+
+- name: locale - adjust current locale
+  command: /usr/sbin/update-locale LANG=en_US.UTF-8 LC_ALL=en_US.UTF-8 LANGUAGE=en_US.UTF-8
+  changed_when: false
+
+- name: update timezone
+  copy: content="{{ system_base_timezone }}\n" dest=/etc/timezone owner=root group=root mode=0644
+  become: true
+  register: timezone
+
+- name: reconfigure timezone data
+  shell: dpkg-reconfigure -f noninteractive tzdata
+  become: true
+  when: timezone.changed
