@@ -9,5 +9,5 @@
   become: yes
 
 - include: motd.yml
-  tags: system
+  tags: system, motd
   become: yes

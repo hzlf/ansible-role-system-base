@@ -1,6 +1,6 @@
 ---
 
-- name: motd file for debian
+- name: adding motd file
   template: src=motd.j2
             dest=/etc/motd
             owner=root

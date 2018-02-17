@@ -4,7 +4,10 @@
   apt: update_cache=yes cache_valid_time=3600
   tags: tools
 
-- name: Update packages
+- name: install aptitude
+  apt: pkg=aptitude state=present
+
+- name: upgrade packages
   apt: upgrade=safe
   tags: util
 
@@ -41,6 +44,7 @@
 
 - name: install ca-certificates
   apt: pkg=ca-certificates state=present
+
 
 # python
 - name: install python-setuptools
