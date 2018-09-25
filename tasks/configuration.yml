@@ -1,5 +1,13 @@
 ---
 
+- name: prefer ipv4
+  lineinfile: dest=/etc/gai.conf line="precedence ::ffff:0:0/96  100" state="present"
+  register: gaiconf
+
+- name: disable ipv6
+  lineinfile: dest=/etc/sysctl.conf line="net.ipv6.conf.all.disable_ipv6 = 1" state="present"
+  register: sysctlconf
+
 - name: ensure UTF-8 locale
   locale_gen: name=en_US.UTF-8 state=present
   tags: util
